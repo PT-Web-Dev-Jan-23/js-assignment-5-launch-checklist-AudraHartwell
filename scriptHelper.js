@@ -1,5 +1,5 @@
 // Write your helper functions here!
-require 'isomorphic-fetch';
+//require ('isomorphic-fetch');
 
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
    // Here is the HTML formatting for our mission target div.
@@ -32,41 +32,44 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     let pilotStatus=document.getElementById("pilotStatus");
     let copilotStatus=document.getElementById("copilotStatus");
     let fuel = document.getElementById("fuelStatus");
-   let cargo = document.getElementById ("cargoStatus");
+    let cargo = document.getElementById ("cargoStatus");
 
-    if (validateInput(pilot)==="Empty"||validateInput(copilot)==="Empty"||validateInput(fuelLevel)==="Empty"||validateInput(cargoLevel)==="Empty") {
+    if (validateInput(pilot)==="Empty"||validateInput(copilot)==="Empty" || validateInput(fuelLevel)==="Empty"|| validateInput(cargoLevel)==="Empty") {
         alert("All fields Required!")
-    } else if (validateInput(pilot)==="Is a Number"||validateInput(copilot)==="Is a Number") {
+    } else if ((validateInput(pilot)==="Is a Number")||(validateInput(copilot)==="Is a Number")) {
         alert("Please enter a valid input")
-    } else if (validateInput(fuelLevel)==="Not a number"||validateInput(cargoLevel)==="Not a number") {
+    } else if ((validateInput(fuelLevel)==="Not a number")||(validateInput(cargoLevel)==="Not a number")) {
         alert ("Please enter a number")
     }else{
         list.style.visibility = "visible";
         pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
         copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
-        let launchStatus = document.getElementById ("launchStatus");
-        if (fuelLevel < 10000 && cargoLevel <= 10000) {
-            fuel.innerHTML = "Fuel level too low for launch";
-            cargo.innerHTML = "Cargo mass low enough for launch"    
-        } else if (fuelLevel<=10000){ 
-        faultyItems.style.visibility="visible"
-        fuel.innerHTML="There is not enough fuel for Launch";
-        cargo.innerHTML="Cargo mass low enough for Launch";
-        launchStatus.innerHTML="Shuttle not ready for Launch";
-        launchStatus.style.color="#FF0000";
-        } else if (cargoLevel>=10000) {
-        faultyItems.style.visibility="visible";
-        fuel.innerHTML="Fuel level high enough for Launch";
-        cargo.innerHTML="Cargo mass is too large for Launch";
-        launchStatus.innerHTML="Shuttle not ready for Launch";
-        launchStatus.style.color="#FF0000";
+        let launchStatus = document.getElementById ("launchStatus");  
+        if(fuelLevel<10000 && cargoLevel<=10000) {
+            list.style.visibility="visible"
+            fuel.innerHTML="Fuel Level too low for launch";
+            cargo.innerHTML="Cargo mass low enough for launch";
+            launchStatus.innerHTML="Shuttle Not Ready for Launch";
+            launchStatus.style.color="#FF0000";
+        } else if (fuelLevel>=10000 && cargoLevel>10000) {
+            list.style.visibility="visible"
+            fuel.innerHTML="Fuel Level high enough for launch";
+            cargo.innerHTML="Cargo mass too heavy for launch";
+            launchStatus.innerHTML="Shuttle Not Ready for Launch";
+            launchStatus.style.color="#FF0000";
+        } else if (fuelLevel<10000 && cargoLevel>10000) {
+            list.style.visibility="visible"
+            fuel.innerHTML="Fuel Level too low for launch";
+            cargo.innerHTML="Cargo mass too heavy for launch";
+            launchStatus.innerHTML="Shuttle Not Ready for Launch";
+            launchStatus.style.color="#FF0000";
         } else {
-        fuel.innerHTML="Fuel level high enough for Launch";
-        cargo.innerHTML="Cargo mass is low enough for Launch";
-        launchStatus.innerHTML="Shuttle is ready for launch";
-        launchStatus.style.color="#00FF00";
+            fuel.innerHTML="Fuel Level high enough for launch";
+            cargo.innerHTML="Cargo mass low enough for launch";
+            launchStatus.innerHTML="Shuttle is Ready for Launch";
+            launchStatus.style.color="#00FF00";
+        }
     }
-}
 }
 
 async function myFetch() {

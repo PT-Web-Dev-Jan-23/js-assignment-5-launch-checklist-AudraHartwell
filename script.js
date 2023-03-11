@@ -19,7 +19,7 @@ window.addEventListener("load", function() {
     let form = document.querySelector("form");
 
     form.addEventListener("submit", function(event) {
-        event.preventDefault();
+        event.preventDefault() ;
         let pilotInput = document.querySelector("input[name=pilotName]");
         let pilot = pilotInput.value;
  
